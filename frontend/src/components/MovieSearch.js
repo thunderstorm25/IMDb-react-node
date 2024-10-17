@@ -37,12 +37,11 @@ const MovieSearch = () => {
             movie.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredMovies(results);
-    }, [searchTerm, movies]); // Trigger this effect on changes to searchTerm or movies
+    }, [searchTerm, movies]); 
 
     const handleUpdate = async (id) => {
         try {
             const response = await axios.put(`http://localhost:5000/api/movies/${id}`, updatedMovie);
-            // Update the movie list with the edited movie
             setFilteredMovies((prevResults) =>
                 prevResults.map((movie) => (movie._id === id ? response.data : movie))
             );
@@ -56,7 +55,6 @@ const MovieSearch = () => {
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://localhost:5000/api/movies/${id}`);
-            // Remove the deleted movie from filtered movies
             setFilteredMovies((prevResults) => prevResults.filter((movie) => movie._id !== id));
         } catch (error) {
             console.error('Error deleting movie:', error);
@@ -86,7 +84,7 @@ const MovieSearch = () => {
                     type="text"
                     placeholder="Search Movies..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)} // Real-time update on change
+                    onChange={(e) => setSearchTerm(e.target.value)} 
                     className="border p-3 w-full text-gray-700 focus:outline-none focus:border-blue-500 rounded-lg shadow-md"
                 />
             </div>
@@ -110,11 +108,11 @@ const MovieSearch = () => {
                                         setUpdatedMovie({
                                             name: movie.name,
                                             description: movie.description,
-                                            cast: movie.cast.join(', '), // Join array for display
+                                            cast: movie.cast.join(', '), 
                                             director: movie.director,
                                             genreId: movie.genreId,
                                             image: movie.image,
-                                            releaseDate: movie.releaseDate.split('T')[0],  // Format date
+                                            releaseDate: movie.releaseDate.split('T')[0],  
                                         });
                                     }}
                                 >

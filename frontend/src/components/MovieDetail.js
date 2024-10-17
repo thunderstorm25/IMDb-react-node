@@ -56,7 +56,15 @@ const MovieDetail = () => {
             {movie ? (
                 <div className="bg-white p-6 rounded-lg shadow-lg">
                     <h2 className="text-3xl font-bold mb-4 text-blue-700">{movie.name}</h2>
-                    <img src={movie.image} alt={movie.name} className="w-full h-64 object-cover mb-4 rounded-lg shadow-md" />
+                    
+                    <div className="flex justify-center mb-4">
+                        <img 
+                            src={movie.image} 
+                            alt={movie.name} 
+                            className="w-half h-96 object-cover rounded-lg shadow-md" 
+                        />
+                    </div>
+
                     <p className="mb-2"><strong>Description:</strong> {movie.description}</p>
                     <p className="mb-2"><strong>Cast:</strong> {movie.cast.join(', ')}</p>
                     <p className="mb-2"><strong>Director:</strong> {movie.director}</p>

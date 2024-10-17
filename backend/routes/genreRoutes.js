@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Add a new genre
 router.post('/', async (req, res) => {
-    const { name } = req.body; // Destructure name from request body
+    const { name } = req.body; 
     try {
         const genre = new Genre({ name });
         await genre.save();
@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
 // GET all genres
 router.get('/', async (req, res) => {
     try {
-        const genres = await Genre.find(); // Fetch all genres
+        const genres = await Genre.find(); 
         res.status(200).json(genres);
     } catch (error) {
         console.error(error);
@@ -44,7 +44,7 @@ router.get('/search', async (req, res) => {
 // Update a genre by ID
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name } = req.body; // Destructure name from request body
+    const { name } = req.body; 
     try {
         const updatedGenre = await Genre.findByIdAndUpdate(id, { name }, { new: true });
         if (!updatedGenre) {

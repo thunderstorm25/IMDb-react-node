@@ -5,7 +5,7 @@ const GenreSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [genres, setGenres] = useState([]);
     const [filteredGenres, setFilteredGenres] = useState([]);
-    const [selectedGenre, setSelectedGenre] = useState(null); // State to hold the genre to be updated
+    const [selectedGenre, setSelectedGenre] = useState(null); 
 
     // Fetch all genres when the component loads
     useEffect(() => {
@@ -13,7 +13,7 @@ const GenreSearch = () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/genres');
                 setGenres(response.data);
-                setFilteredGenres(response.data); // Initially show all genres
+                setFilteredGenres(response.data); 
             } catch (error) {
                 console.error('Error fetching genres:', error);
             }
@@ -27,7 +27,7 @@ const GenreSearch = () => {
             genre.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredGenres(results);
-    }, [searchTerm, genres]); // Trigger this effect on changes to searchTerm or genres
+    }, [searchTerm, genres]); 
 
     const handleUpdateGenre = async (e) => {
         e.preventDefault();
@@ -38,9 +38,9 @@ const GenreSearch = () => {
 
         try {
             const response = await axios.put(`http://localhost:5000/api/genres/${selectedGenre._id}`, selectedGenre);
-            console.log('Updated genre:', response.data); // Log the updated genre
+            console.log('Updated genre:', response.data); 
             setSelectedGenre(null);
-            setSearchTerm(''); // Clear search term
+            setSearchTerm(''); 
         } catch (error) {
             console.error('Error updating genre:', error);
         }
@@ -54,7 +54,7 @@ const GenreSearch = () => {
                     type="text"
                     placeholder="Search Genres..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)} // Real-time update on change
+                    onChange={(e) => setSearchTerm(e.target.value)} 
                     className="border p-3 w-full text-gray-700 focus:outline-none focus:border-blue-500 rounded-lg shadow-md"
                 />
             </div>
@@ -70,7 +70,7 @@ const GenreSearch = () => {
                             <div className="flex justify-between">
                                 <button
                                     className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 mr-2"
-                                    onClick={() => setSelectedGenre(genre)} // Set selected genre for updating
+                                    onClick={() => setSelectedGenre(genre)} 
                                 >
                                     Update
                                 </button>
@@ -103,7 +103,7 @@ const GenreSearch = () => {
                         <button
                             type="button"
                             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2"
-                            onClick={() => setSelectedGenre(null)} // Clear selected genre
+                            onClick={() => setSelectedGenre(null)} 
                         >
                             Cancel
                         </button>

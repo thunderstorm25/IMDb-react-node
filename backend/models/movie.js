@@ -8,8 +8,8 @@ const movieSchema = new mongoose.Schema({
     director: { type: String, required: true },
     genreId: { type: mongoose.Schema.Types.ObjectId, ref: 'Genre', required: true },
     reviewId: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
-    image: { type: String }, // URL or path to the movie poster/image
-    releaseDate: { type: Date, required: true }, // Movie release date
+    image: { type: String }, 
+    releaseDate: { type: Date, required: true }, 
 });
 
 const Movie = mongoose.model('Movie', movieSchema);

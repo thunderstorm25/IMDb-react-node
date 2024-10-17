@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom'; // Import Link for navigation
+import { Link, useNavigate } from 'react-router-dom'; 
 
 const User = () => {
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ const User = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [genres, setGenres] = useState([]);
-    const [filteredMovies, setFilteredMovies] = useState([]); // To store filtered results
+    const [filteredMovies, setFilteredMovies] = useState([]); 
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -60,7 +60,7 @@ const User = () => {
     }, [filter, selectedGenre, movies]);
 
     const getGenreName = (genreId) => {
-        const genre = genres.find((g) => g._id === genreId);
+        const genre = genres.find((g) => g._id === genreId || g._id === genreId._id); 
         return genre ? genre.name : 'Unknown Genre';
     };
 
@@ -117,7 +117,7 @@ const User = () => {
                                         <img
                                             src={movie.image}
                                             alt={movie.name}
-                                            className="w-62 h-54 object-cover rounded-lg mt-4 shadow-md" // Adjusted size
+                                            className="w-62 h-54 object-cover rounded-lg mt-4 shadow-md" 
                                         />
                                     )}
                                 </div>
