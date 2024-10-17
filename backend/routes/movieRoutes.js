@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Movie = require('../models/Movie');
 const Genre = require('../models/Genre');
+const Rating = require('../models/rating');
 
 // GET all movies
 router.get('/', async (req, res) => {
@@ -125,6 +126,52 @@ router.delete('/:id', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error deleting movie' });
+    }
+});
+
+router.post('/:id/rate', async (req, res) => {
+    const { id } = req.params; // Movie ID from URL
+    const { rating } = req.body; // Rating from request body
+
+    try {
+        // Check if the rating is within the valid range (1-5)
+        if (rating < 1 || rating > 5) {
+            return res.status(400).json({ error: 'Rating must be between 1 and 5.' });
+        }
+
+        // Create a new rating entry
+        const newRating = new Rating({
+            movieId: id,
+            rating: rating
+        });
+
+        await newRating.save(); // Save the rating to the database
+        res.status(201).json({ message: 'Rating submitted successfully!' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to submit rating.' });
+    }
+});
+
+
+router.get('/:id/ratings', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Calculate the average rating for the movie
+        const ratings = await Rating.find({ movieId: id });
+        if (ratings.length === 0) {
+            return res.status(200).json({ averageRating: 0, ratingCount: 0 });
+        }
+
+        const totalRating = ratings.reduce((acc, rating) => acc + rating.rating, 0);
+        const averageRating = totalRating / ratings.length;
+
+        res.status(200).json({
+            averageRating: averageRating.toFixed(1),
+            ratingCount: ratings.length
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch ratings.' });
     }
 });
 

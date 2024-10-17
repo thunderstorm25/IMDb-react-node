@@ -15,3 +15,17 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@media print {
+  /* Hide navigation and buttons when printing */
+  button {
+      display: none;
+  }
+
+  .p-6 {
+      padding: 0; /* Remove padding for printing */
+  }
+
+  /* Add any other styles you want to apply for print */
+}

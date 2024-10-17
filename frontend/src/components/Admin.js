@@ -35,7 +35,6 @@ const Admin = () => {
     });
     const [newGenre, setNewGenre] = useState({ name: '' });
 
-    // Fetch genres for the dropdown
     useEffect(() => {
         const fetchGenres = async () => {
             try {
@@ -136,39 +135,50 @@ const Admin = () => {
     };
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="p-6 bg-gradient-to-b from-gray-100 via-blue-50 to-purple-100 min-h-screen flex flex-col items-center">
+            {/* Back to Home Button */}
             <button
                 onClick={() => navigate('/')}
-                className="absolute top-2 left-2 bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition-colors"
+                className="absolute top-2 left-2 bg-gray-600 text-white px-4 py-2 rounded-md shadow-lg hover:bg-gray-700 transition"
             >
                 Back to Home
             </button>
-            <h2 className="text-3xl font-extrabold text-gray-900 mb-6 text-center">Admin Panel</h2>
+
+            {/* Admin Panel Header */}
+            <h2 className="text-4xl font-bold text-blue-900 mb-10 text-center">
+                Admin Panel
+            </h2>
+
+            {/* Navigation Buttons for Sections */}
             <div className="flex justify-center space-x-6 mb-8">
                 <button
                     onClick={() => setSection(Sections.MOVIES)}
-                    className={`transition transform hover:-translate-y-1 bg-blue-600 text-white py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 
-                    ${section === Sections.MOVIES ? 'ring ring-blue-400' : ''}`}
+                    className={`px-6 py-3 rounded-full shadow-xl transform transition hover:-translate-y-1 hover:bg-blue-700 ${
+                        section === Sections.MOVIES ? 'bg-blue-600 text-white ring ring-blue-400' : 'bg-white text-blue-600 hover:text-white'
+                    }`}
                 >
                     Movies
                 </button>
                 <button
                     onClick={() => setSection(Sections.TVSHOWS)}
-                    className={`transition transform hover:-translate-y-1 bg-blue-600 text-white py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 
-                    ${section === Sections.TVSHOWS ? 'ring ring-blue-400' : ''}`}
+                    className={`px-6 py-3 rounded-full shadow-xl transform transition hover:-translate-y-1 hover:bg-blue-700 ${
+                        section === Sections.TVSHOWS ? 'bg-blue-600 text-white ring ring-blue-400' : 'bg-white text-blue-600 hover:text-white'
+                    }`}
                 >
                     TV Shows
                 </button>
                 <button
                     onClick={() => setSection(Sections.GENRES)}
-                    className={`transition transform hover:-translate-y-1 bg-blue-600 text-white py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 
-                    ${section === Sections.GENRES ? 'ring ring-blue-400' : ''}`}
+                    className={`px-6 py-3 rounded-full shadow-xl transform transition hover:-translate-y-1 hover:bg-blue-700 ${
+                        section === Sections.GENRES ? 'bg-blue-600 text-white ring ring-blue-400' : 'bg-white text-blue-600 hover:text-white'
+                    }`}
                 >
                     Genres
                 </button>
             </div>
 
-            <div className="flex justify-center mb-6">
+            {/* Search Button */}
+            <div className="flex justify-center mb-10">
                 <button
                     className="py-2 px-8 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition-all"
                     onClick={() => setSearch(!search)}
@@ -177,11 +187,12 @@ const Admin = () => {
                 </button>
             </div>
 
-            <div className="flex justify-center">
+            {/* Form Section */}
+            <div className="flex justify-center w-full">
                 {section === Sections.MOVIES && (
                     <>
                         {!search ? (
-                            <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+                            <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-xl">
                                 <h3 className="text-2xl font-bold mb-4 text-center">Add Movie</h3>
                                 <form onSubmit={handleAddMovie}>
                                     <input
@@ -190,22 +201,22 @@ const Admin = () => {
                                         value={newMovie.name}
                                         onChange={(e) => setNewMovie({ ...newMovie, name: e.target.value })}
                                         required
-                                        className="border p-3 mb-4 w-full rounded-lg focus:ring-2 focus:ring-blue-300"
+                                        className="border p-3 mb-4 w-full rounded-lg shadow focus:ring-2 focus:ring-blue-300"
                                     />
                                     <textarea
                                         placeholder="Description"
                                         value={newMovie.description}
                                         onChange={(e) => setNewMovie({ ...newMovie, description: e.target.value })}
                                         required
-                                        className="border p-3 mb-4 w-full rounded-lg focus:ring-2 focus:ring-blue-300"
+                                        className="border p-3 mb-4 w-full rounded-lg shadow focus:ring-2 focus:ring-blue-300"
                                     />
                                     <input
                                         type="text"
                                         placeholder="Cast (comma separated)"
-                                        value={newMovie.cast} // This should be a string
-                                        onChange={(e) => setNewMovie({ ...newMovie, cast: e.target.value })} // Store as string
+                                        value={newMovie.cast}
+                                        onChange={(e) => setNewMovie({ ...newMovie, cast: e.target.value })}
                                         required
-                                        className="border p-3 mb-4 w-full rounded-lg focus:ring-2 focus:ring-blue-300"
+                                        className="border p-3 mb-4 w-full rounded-lg shadow focus:ring-2 focus:ring-blue-300"
                                     />
                                     <input
                                         type="text"
@@ -213,13 +224,13 @@ const Admin = () => {
                                         value={newMovie.director}
                                         onChange={(e) => setNewMovie({ ...newMovie, director: e.target.value })}
                                         required
-                                        className="border p-3 mb-4 w-full rounded-lg focus:ring-2 focus:ring-blue-300"
+                                        className="border p-3 mb-4 w-full rounded-lg shadow focus:ring-2 focus:ring-blue-300"
                                     />
                                     <select
                                         value={newMovie.genreId}
                                         onChange={(e) => setNewMovie({ ...newMovie, genreId: e.target.value })}
                                         required
-                                        className="border p-3 mb-4 w-full rounded-lg focus:ring-2 focus:ring-blue-300"
+                                        className="border p-3 mb-4 w-full rounded-lg shadow focus:ring-2 focus:ring-blue-300"
                                     >
                                         <option value="">Select Genre</option>
                                         {genres.map((genre) => (
@@ -234,7 +245,7 @@ const Admin = () => {
                                         value={newMovie.image}
                                         onChange={(e) => setNewMovie({ ...newMovie, image: e.target.value })}
                                         required
-                                        className="border p-3 mb-4 w-full rounded-lg focus:ring-2 focus:ring-blue-300"
+                                        className="border p-3 mb-4 w-full rounded-lg shadow focus:ring-2 focus:ring-blue-300"
                                     />
                                     <input
                                         type="date"
@@ -242,7 +253,7 @@ const Admin = () => {
                                         value={newMovie.releaseDate}
                                         onChange={(e) => setNewMovie({ ...newMovie, releaseDate: e.target.value })}
                                         required
-                                        className="border p-3 mb-4 w-full rounded-lg focus:ring-2 focus:ring-blue-300"
+                                        className="border p-3 mb-4 w-full rounded-lg shadow focus:ring-2 focus:ring-blue-300"
                                     />
                                     <button
                                         type="submit"
@@ -261,7 +272,7 @@ const Admin = () => {
                 {section === Sections.TVSHOWS && (
                     <>
                         {!search ? (
-                            <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+                            <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-xl">
                                 <h3 className="text-2xl font-bold mb-4 text-center">Add TV Show</h3>
                                 <form onSubmit={handleAddTvShow}>
                                     {/* Similar fields and structure for TV Shows */}
@@ -276,7 +287,7 @@ const Admin = () => {
                 {section === Sections.GENRES && (
                     <>
                         {!search ? (
-                            <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+                            <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-xl">
                                 <h3 className="text-2xl font-bold mb-4 text-center">Add Genre</h3>
                                 <form onSubmit={handleAddGenre}>
                                     <input
@@ -285,7 +296,7 @@ const Admin = () => {
                                         value={newGenre.name}
                                         onChange={(e) => setNewGenre({ name: e.target.value })}
                                         required
-                                        className="border p-3 mb-4 w-full rounded-lg focus:ring-2 focus:ring-blue-300"
+                                        className="border p-3 mb-4 w-full rounded-lg shadow focus:ring-2 focus:ring-blue-300"
                                     />
                                     <button
                                         type="submit"
