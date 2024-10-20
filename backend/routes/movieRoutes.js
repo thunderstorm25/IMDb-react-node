@@ -48,7 +48,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const { name, description, cast, director, genreId, image, releaseDate } = req.body;
 
-    // Check for required fields
     if (!name || !description || !cast || !director || !genreId || !image || !releaseDate) {
         return res.status(400).json({ message: 'All fields are required' });
     }
@@ -59,13 +58,12 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: 'Invalid genre' });
         }
 
-        // Check if cast is a string before splitting
         const castArray = Array.isArray(cast) ? cast : typeof cast === 'string' ? cast.split(',') : [];
 
         const newMovie = new Movie({
             name,
             description,
-            cast: castArray, // Now cast is always an array
+            cast: castArray, 
             director,
             genreId,
             image,
@@ -75,7 +73,7 @@ router.post('/', async (req, res) => {
         const savedMovie = await newMovie.save();
         res.status(201).json(savedMovie);
     } catch (err) {
-        console.error('Error while adding movie:', err); // Log the error details
+        console.error('Error while adding movie:', err); 
         res.status(500).json({ message: 'Error adding movie' });
     }
 });
@@ -130,22 +128,20 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.post('/:id/rate', async (req, res) => {
-    const { id } = req.params; // Movie ID from URL
-    const { rating } = req.body; // Rating from request body
+    const { id } = req.params; 
+    const { rating } = req.body; 
 
     try {
-        // Check if the rating is within the valid range (1-5)
         if (rating < 1 || rating > 5) {
             return res.status(400).json({ error: 'Rating must be between 1 and 5.' });
         }
 
-        // Create a new rating entry
         const newRating = new Rating({
             movieId: id,
             rating: rating
         });
 
-        await newRating.save(); // Save the rating to the database
+        await newRating.save();
         res.status(201).json({ message: 'Rating submitted successfully!' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to submit rating.' });
@@ -157,7 +153,6 @@ router.get('/:id/ratings', async (req, res) => {
     const { id } = req.params;
 
     try {
-        // Calculate the average rating for the movie
         const ratings = await Rating.find({ movieId: id });
         if (ratings.length === 0) {
             return res.status(200).json({ averageRating: 0, ratingCount: 0 });

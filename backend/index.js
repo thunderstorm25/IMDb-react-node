@@ -10,7 +10,6 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const app = express();
 const PORT = 5000;
 
-// Connect to MongoDB
 connectDB();
 
 // Middleware
@@ -22,7 +21,6 @@ app.use('/api/movies', movieRoutes);
 app.use('/api/genres', genreRoutes);
 app.use('/api/reviews', reviewRoutes);
 
-// Start server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
